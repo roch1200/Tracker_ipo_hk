@@ -1,0 +1,24 @@
+# Flutter
+build/
+.dart_tool/
+.packages
+.pub/
+pubspec.lock
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Windows
+windows/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python (scripts auxiliars)
+*.pyc
+__pycache__/
