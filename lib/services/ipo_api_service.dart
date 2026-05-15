@@ -119,7 +119,36 @@ class IPOApiService {
 
   /// Simula dades d'IPOs de demostració (per quan no hi ha API Key)
   /// Això es pot substituir per dades reals d'scraping de HKEX
-  List<IPOModel> getDemoIPOs() {
+  Future<List<IPOModel>> getDemoIPOs() async {
+    try {
+      final response = await http.get(
+        Uri.parse('https://ipo-tracker.roch1200.workers.dev?action=get_all_data'),
+      ).timeout(_timeout);
+
+      if (response.statusCode == 200) {
+        final json = json.decode(response.body) as Map<String, dynamic>;
+        final List<dynamic> dataList = json['data'] as List<dynamic>;
+        return dataList.map((data) {
+          final item = data as Map<String, dynamic>;
+          return IPOModel(
+            ticker: item['ticker'] as String,
+            companyName: item['companyName'] as String,
+            exchange: 'Main Board',
+            listingDate: DateTime.parse(item['listingDate'] as String),
+            ipoPrice: (item['ipoPrice'] as num).toDouble(),
+            firstDayClose: (item['firstDayClose'] as num?)?.toDouble(),
+            currentPrice: (item['currentPrice'] as num?)?.toDouble(),
+            sector: item['sector'] as String?,
+            fundsRaised: (item['fundsRaised'] as num).toDouble(),
+            isUpcoming: item['isUpcoming'] as bool? ?? false,
+          );
+        }).toList();
+      }
+    } catch (e) {
+      print('Error obtenint dades del worker: ' + e.toString());
+    }
+
+    // Fallback si el worker no respon
     final now = DateTime.now();
     final random = Random(123);
 
@@ -393,5 +422,6 @@ class IPOApiService {
     }).toList();
   }
 }
+
 
 

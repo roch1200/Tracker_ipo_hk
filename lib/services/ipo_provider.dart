@@ -58,7 +58,7 @@ class IPOProvider extends ChangeNotifier {
 
   /// Carrega dades de demostració (quan no hi ha connexió)
   Future<void> _loadDemoData() async {
-    final demos = _apiService.getDemoIPOs();
+    final demos = await _apiService.getDemoIPOs();
     await _dbService.upsertIPOs(demos);
     await _dbService.setLastUpdateDate(DateTime.now());
     _allIPOs = demos;
@@ -246,4 +246,5 @@ class IPOProvider extends ChangeNotifier {
     return _dbService.searchIPOs(query);
   }
 }
+
 
