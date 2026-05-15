@@ -6,7 +6,7 @@ import '../models/ipo_model.dart';
 /// Servei per obtenir dades d'IPOs de múltiples fonts
 /// Inclou scraping de HKEX i APIs de Yahoo Finance
 class IPOApiService {
-  static const String _baseUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/';
+  static const String _baseUrl = 'https://ipo-tracker.roch1200.workers.dev?url=https://query1.finance.yahoo.com/v8/finance/chart/';
   static const String _hkexNewsUrl = 'https://www.hkexnews.hk/listedco/listconews/advancedsearch/search_active_main.aspx';
 
   // Temps d'espera per peticions
@@ -17,14 +17,13 @@ class IPOApiService {
     try {
       // Yahoo Finance usa sufix .HK per Hong Kong
       final yahooTicker = '$ticker.HK';
-      final url = '${_baseUrl}${yahooTicker}?range=6mo&interval=1d';
+      final url = 'https://ipo-tracker.roch1200.workers.dev?url=https://query1.finance.yahoo.com/v8/finance/chart/${yahooTicker}?range=6mo&interval=1d';
 
       final response = await http
           .get(
             Uri.parse(url),
             headers: {
-              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            },
+                          },
           )
           .timeout(_timeout);
 
@@ -394,3 +393,5 @@ class IPOApiService {
     }).toList();
   }
 }
+
+
