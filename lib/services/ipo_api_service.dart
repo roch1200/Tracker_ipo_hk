@@ -126,8 +126,8 @@ class IPOApiService {
       ).timeout(_timeout);
 
       if (response.statusCode == 200) {
-        final json = json.decode(response.body) as Map<String, dynamic>;
-        final List<dynamic> dataList = json['data'] as List<dynamic>;
+        final jsonData = jsonDecode(response.body) as Map<String, dynamic>;
+        final List<dynamic> dataList = jsonData['data'] as List<dynamic>;
         return dataList.map((data) {
           final item = data as Map<String, dynamic>;
           return IPOModel(
@@ -422,6 +422,7 @@ class IPOApiService {
     }).toList();
   }
 }
+
 
 
 
