@@ -27,6 +27,25 @@ class AppConstants {
 
   // Temes
   static ThemeData get lightTheme => ThemeData(
+  static ThemeData get darkTheme => ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: primaryColor,
+          brightness: Brightness.dark,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF121212),
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 0,
+        ),
+        cardTheme: CardTheme(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(cardBorderRadius),
+          ),
+        ),
+      );
+  
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: primaryColor,
@@ -56,3 +75,4 @@ class AppConstants {
       'https://www.hkex.com.hk/Join-Our-Market/IPO/Listing-with-HKEX?sc_lang=en';
   static const String yahooFinanceUrl = 'https://finance.yahoo.com';
 }
+

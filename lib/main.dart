@@ -9,8 +9,21 @@ void main() {
   runApp(const HKEXIPOTrackerApp());
 }
 
-class HKEXIPOTrackerApp extends StatelessWidget {
+class HKEXIPOTrackerApp extends StatefulWidget {
   const HKEXIPOTrackerApp({super.key});
+
+  @override
+  State<HKEXIPOTrackerApp> createState() => _HKEXIPOTrackerAppState();
+}
+
+class _HKEXIPOTrackerAppState extends State<HKEXIPOTrackerApp> {
+  bool _isDarkMode = false;
+
+  void _toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +35,12 @@ class HKEXIPOTrackerApp extends StatelessWidget {
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
         theme: AppConstants.lightTheme,
-        home: const HomeScreen(),
+        darkTheme: AppConstants.darkTheme,
+        themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
+        home: HomeScreen(
+          onToggleTheme: _toggleTheme,
+          isDarkMode: _isDarkMode,
+        ),
       ),
     );
   }

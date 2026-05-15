@@ -11,7 +11,14 @@ import 'ipo_detail_screen.dart';
 
 /// Pantalla principal de l'aplicació
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback onToggleTheme;
+  final bool isDarkMode;
+
+  const HomeScreen({
+    super.key,
+    required this.onToggleTheme,
+    required this.isDarkMode,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -41,6 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.refresh),
             onPressed: _onRefresh,
             tooltip: 'Actualitzar dades',
+          ),
+          IconButton(
+            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            onPressed: widget.onToggleTheme,
+            tooltip: 'Canviar tema',
           ),
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -520,5 +532,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
 
 
